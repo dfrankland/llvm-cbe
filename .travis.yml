@@ -1,0 +1,27 @@
+language: minimal
+dist: xenial
+
+before_install:
+  - cd ~
+  - git clone https://github.com/llvm-mirror/llvm
+  - cd ./llvm
+  - git checkout release_70
+  - mkdir -p ~/llvm/build
+  - cd ~/llvm/build
+  - cmake ..
+
+install:
+  - cd ~/llvm/build
+  - make;
+
+before_script:
+  - ln -s . ~/llvm/projects/llvm-cbe
+  - cd ~/llvm/build
+  - cmake ..
+
+script:
+  - cd ~/llvm/build
+  - make llvm-cbe
+  - make lli
+  - make CBEUnitTests
+  - ./projects/llvm-cbe/unittests/CWriterTest
