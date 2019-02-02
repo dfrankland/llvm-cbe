@@ -10,10 +10,6 @@ before_install:
   - cd ~/llvm/build
   - cmake ..
 
-install:
-  - cd ~/llvm/build
-  - make;
-
 before_script:
   - ln -s . ~/llvm/projects/llvm-cbe
   - cd ~/llvm/build
