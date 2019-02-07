@@ -14,7 +14,7 @@ jobs:
         - curl -fL http://releases.llvm.org/7.0.1/llvm-7.0.1.src.tar.xz | tar xJf -
         - mv ./llvm-7.0.1.src ./llvm
         - mkdir -p ./llvm/build
-        - ln -s . ~/llvm/projects/llvm-cbe
+        - ln -s $TRAVIS_BUILD_DIR ~/llvm/projects/llvm-cbe
         - cd ~/llvm/build
         - cmake -G Ninja -DCMAKE_EXPORT_COMPILE_COMMANDS=ON ..
       script: true
