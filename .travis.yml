@@ -10,44 +10,36 @@ jobs:
   include:
     - stage: Setup
       install:
-        - cd ~
-        - curl -fL http://releases.llvm.org/7.0.1/llvm-7.0.1.src.tar.xz | tar xJf -
-        - mv ./llvm-7.0.1.src ./llvm
-        - mkdir -p ./llvm/build
+        - cd ~ && curl -fL http://releases.llvm.org/7.0.1/llvm-7.0.1.src.tar.xz | tar xJf -
+        - mv ~/llvm-7.0.1.src ~/llvm
+        - mkdir -p ~/llvm/build
         - ln -s $TRAVIS_BUILD_DIR ~/llvm/projects/llvm-cbe
-        - cd ~/llvm/build
-        - cmake -G Ninja -DCMAKE_EXPORT_COMPILE_COMMANDS=ON ..
+        - cd ~/llvm/build && cmake -G Ninja -DCMAKE_EXPORT_COMPILE_COMMANDS=ON ..
       script: true
     - stage: Build llvm-cbe 1 (Timeout in 30 min.)
       install: true
       script:
-        - cd ~/llvm/build
-        - timeout 1800 ninja llvm-cbe || true
+        - cd ~/llvm/build && timeout 1800 ninja llvm-cbe || true
     - stage: Build llvm-cbe 2 (Timeout in 30 min.)
       install: true
       script:
-        - cd ~/llvm/build
-        - timeout 1800 ninja llvm-cbe || true
+        - cd ~/llvm/build && timeout 1800 ninja llvm-cbe || true
     - stage: Build llvm-cbe 3 (Timeout in 30 min.)
       install: true
       script:
-        - cd ~/llvm/build
-        - timeout 1800 ninja llvm-cbe || true
+        - cd ~/llvm/build && timeout 1800 ninja llvm-cbe || true
     - stage: Build llvm-cbe 4 (Timeout in 30 min.)
       install: true
       script:
-        - cd ~/llvm/build
-        - timeout 1800 ninja llvm-cbe || true
+        - cd ~/llvm/build && timeout 1800 ninja llvm-cbe || true
     - stage: Build lli
       install: true
       script:
-        - cd ~/llvm/build
-        - ninja lli
+        - cd ~/llvm/build && ninja lli
     - stage: Build CBEUnitTests
       install: true
       script:
-        - cd ~/llvm/build
-        - ninja CBEUnitTests
+        - cd ~/llvm/build && ninja CBEUnitTests
     - stage: Run CBEUnitTests
       install: true
       script:
