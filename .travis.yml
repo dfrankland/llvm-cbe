@@ -5,11 +5,14 @@ sudo: false
 addons:
   apt:
     packages:
-    - ninja-build
+      - ninja-build
+      - ccache
 
 cache:
-  directories:
-    - $HOME/llvm
+  - ccache
+  - directories:
+      - $HOME/llvm
+      - $HOME/.ccache
 
 jobs:
   include:
@@ -20,8 +23,13 @@ jobs:
         - mv ~/llvm-7.0.1.src ~/llvm
         - ln -s $TRAVIS_BUILD_DIR ~/llvm/projects/llvm-cbe
         - mkdir -p ~/llvm/build
-        - cd ~/llvm/build && cmake -G Ninja -DCMAKE_EXPORT_COMPILE_COMMANDS=ON ..
+        - cd ~/llvm/build && CC=/usr/lib/ccache/cc CXX=/usr/lib/ccache/c++ cmake -G Ninja -DCMAKE_EXPORT_COMPILE_COMMANDS=ON ..
       script: true
+    - stage: Build llvm-cbe 0 (Timeout in 1 min.)
+      install:
+        - test -d ~/llvm/build
+      script:
+        - cd ~/llvm/build && timeout 60 ninja llvm-cbe || true
     - stage: Build llvm-cbe 1 (Timeout in 30 min.)
       install:
         - test -d ~/llvm/build
