@@ -1,53 +1,59 @@
 language: minimal
 dist: xenial
-sudo: true
+sudo: false
+
+addons:
+  apt:
+    packages:
+    - ninja-build
 
 cache:
   directories:
     - $HOME/llvm
-    - /bin/ninja
 
 jobs:
   include:
     - stage: Setup
       install:
-        - cd ~ && curl -fLO https://github.com/ninja-build/ninja/releases/download/v1.9.0/ninja-linux.zip
-        - unzip ~/ninja-linux.zip
-        - rm ~/ninja-linux.zip
-        - sudo mv ~/ninja /bin/ninja
-        - sudo chmod +x /bin/ninja
         - rm -rf ~/llvm
         - cd ~ && curl -fL http://releases.llvm.org/7.0.1/llvm-7.0.1.src.tar.xz | tar xJf -
         - mv ~/llvm-7.0.1.src ~/llvm
-        - ln -s $TRAVIS_BUILD_DIR ~/llvm/projects/llvm-cbe && ls -la ~/llvm/projects && ls -la ~/llvm/projects/llvm-cbe
+        - ln -s $TRAVIS_BUILD_DIR ~/llvm/projects/llvm-cbe
         - mkdir -p ~/llvm/build
         - cd ~/llvm/build && cmake -G Ninja -DCMAKE_EXPORT_COMPILE_COMMANDS=ON ..
       script: true
     - stage: Build llvm-cbe 1 (Timeout in 30 min.)
-      install: true
+      install:
+        - test -d ~/llvm/build
       script:
         - cd ~/llvm/build && timeout 1800 ninja llvm-cbe || true
     - stage: Build llvm-cbe 2 (Timeout in 30 min.)
-      install: true
+      install:
+        - test -d ~/llvm/build
       script:
         - cd ~/llvm/build && timeout 1800 ninja llvm-cbe || true
     - stage: Build llvm-cbe 3 (Timeout in 30 min.)
-      install: true
+      install:
+        - test -d ~/llvm/build
       script:
         - cd ~/llvm/build && timeout 1800 ninja llvm-cbe || true
     - stage: Build llvm-cbe 4 (Timeout in 30 min.)
-      install: true
+      install:
+        - test -d ~/llvm/build
       script:
         - cd ~/llvm/build && timeout 1800 ninja llvm-cbe || true
     - stage: Build lli
-      install: true
+      install:
+        - test -d ~/llvm/build
       script:
         - cd ~/llvm/build && ninja lli
     - stage: Build CBEUnitTests
-      install: true
+      install:
+        - test -d ~/llvm/build
       script:
         - cd ~/llvm/build && ninja CBEUnitTests
     - stage: Run CBEUnitTests
-      install: true
+      install:
+        - test -f ~/llvm/build/projects/llvm-cbe/unittests/CWriterTest
       script:
         - ~/llvm/build/projects/llvm-cbe/unittests/CWriterTest
