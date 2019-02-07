@@ -1,5 +1,6 @@
 language: minimal
 dist: xenial
+sudo: true
 
 cache:
   directories:
