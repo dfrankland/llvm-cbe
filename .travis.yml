@@ -14,8 +14,8 @@ jobs:
         - cd ~ && curl -fLO https://github.com/ninja-build/ninja/releases/download/v1.9.0/ninja-linux.zip
         - unzip ~/ninja-linux.zip
         - rm ~/ninja-linux.zip
-        - mv ~/ninja /bin/ninja
-        - chmod +x /bin/ninja
+        - sudo mv ~/ninja /bin/ninja
+        - sudo chmod +x /bin/ninja
         - rm -rf ~/llvm
         - cd ~ && curl -fL http://releases.llvm.org/7.0.1/llvm-7.0.1.src.tar.xz | tar xJf -
         - mv ~/llvm-7.0.1.src ~/llvm
