@@ -49,7 +49,7 @@ jobs:
       stage: Build llvm-cbe 1 (Timeout in 20 min.)
       install:
         - test -d ~/llvm/build
-        - test -f ~/llvm-cbe-ccache/.ccache.tar && tar -xvg ~/llvm-cbe-ccache/.ccache.tar -C ~ || true
+        - test -f ~/llvm-cbe-ccache/.ccache.tar && tar -xvf ~/llvm-cbe-ccache/.ccache.tar -C ~ || true
       script:
         - cd ~/llvm/build && timeout 1200 ninja llvm-cbe || true
         - tar -rvf ~/llvm-cbe-ccache/.ccache.tar ~/.ccache
@@ -74,7 +74,7 @@ jobs:
       stage: Build lli 1 (Timeout in 20 min.)
       install:
         - test -d ~/llvm/build
-        - test -f ~/llvm-cbe-ccache/.ccache.tar && tar -xvg ~/llvm-cbe-ccache/.ccache.tar -C ~ || true
+        - test -f ~/llvm-cbe-ccache/.ccache.tar && tar -xvf ~/llvm-cbe-ccache/.ccache.tar -C ~ || true
       script:
         - cd ~/llvm/build && timeout 1200 ninja lli || true
         - tar -rvf ~/llvm-cbe-ccache/.ccache.tar ~/.ccache
@@ -87,7 +87,7 @@ jobs:
       stage: Build CBEUnitTests 1 (Timeout in 20 min.)
       install:
         - test -d ~/llvm/build
-        - test -f ~/llvm-cbe-ccache/.ccache.tar && tar -xvg ~/llvm-cbe-ccache/.ccache.tar -C ~ || true
+        - test -f ~/llvm-cbe-ccache/.ccache.tar && tar -xvf ~/llvm-cbe-ccache/.ccache.tar -C ~ || true
       script:
         - cd ~/llvm/build && timeout 1200 ninja CBEUnitTests
         - tar -rvf ~/llvm-cbe-ccache/.ccache.tar ~/.ccache
