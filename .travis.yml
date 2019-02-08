@@ -53,7 +53,7 @@ jobs:
       script:
         - cd ~/llvm/build && timeout 1200 ninja llvm-cbe || true
         - tar -rvf ~/llvm-cbe-ccache/.ccache.tar ~/.ccache
-        - rf -rf ~/.ccache
+        - rm -rf ~/.ccache
     - <<: *build-llvm-cbe
       stage: Build llvm-cbe 2 (Timeout in 20 min.)
     - <<: *build-llvm-cbe
@@ -78,7 +78,7 @@ jobs:
       script:
         - cd ~/llvm/build && timeout 1200 ninja lli || true
         - tar -rvf ~/llvm-cbe-ccache/.ccache.tar ~/.ccache
-        - rf -rf ~/.ccache
+        - rm -rf ~/.ccache
     - <<: *build-lli
       stage: Build lli 2 (Timeout in 20 min.)
     - <<: *build-lli
@@ -91,7 +91,7 @@ jobs:
       script:
         - cd ~/llvm/build && timeout 1200 ninja CBEUnitTests
         - tar -rvf ~/llvm-cbe-ccache/.ccache.tar ~/.ccache
-        - rf -rf ~/.ccache
+        - rm -rf ~/.ccache
     - <<: *build-cbe-unit-tests
       stage: Build CBEUnitTests 2 (Timeout in 20 min.)
     - <<: *build-cbe-unit-tests
