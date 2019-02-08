@@ -82,7 +82,7 @@ jobs:
       install:
         - test -d ~/llvm/build
       script:
-        - cd ~/llvm/build && ninja CBEUnitTests
+        - cd ~/llvm/build && timeout 1200 ninja CBEUnitTests
     - <<: *build-cbe-unit-tests
       stage: Build CBEUnitTests 2 (Timeout in 20 min.)
     - <<: *build-cbe-unit-tests
