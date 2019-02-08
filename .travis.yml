@@ -9,10 +9,11 @@ addons:
       - ccache
 
 cache:
-  - ccache
-  - directories:
-      - $HOME/llvm
-      - $HOME/.ccache
+  timeout: 3600
+  ccache: true
+  directories:
+    - $HOME/llvm
+    - $HOME/.ccache
 
 jobs:
   include:
