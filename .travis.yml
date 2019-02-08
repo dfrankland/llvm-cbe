@@ -13,7 +13,7 @@ cache:
   ccache: true
   directories:
     - $HOME/llvm
-    - $HOME/.ccache
+    - $HOME/.ccache.tar
 
 stages:
   - Setup
@@ -49,8 +49,11 @@ jobs:
       stage: Build llvm-cbe 1 (Timeout in 20 min.)
       install:
         - test -d ~/llvm/build
+        - test -f ~/.ccache.tar && tar -xvg ~/.ccache.tar || true
       script:
         - cd ~/llvm/build && timeout 1200 ninja llvm-cbe || true
+      after_success:
+        - tar -cvf ~/.ccache.tar ~/.ccache
     - <<: *build-llvm-cbe
       stage: Build llvm-cbe 2 (Timeout in 20 min.)
     - <<: *build-llvm-cbe
@@ -71,8 +74,11 @@ jobs:
       stage: Build lli 1 (Timeout in 20 min.)
       install:
         - test -d ~/llvm/build
+        - test -f ~/.ccache.tar && tar -xvg ~/.ccache.tar || true
       script:
         - cd ~/llvm/build && timeout 1200 ninja lli || true
+      after_success:
+        - tar -cvf ~/.ccache.tar ~/.ccache
     - <<: *build-lli
       stage: Build lli 2 (Timeout in 20 min.)
     - <<: *build-lli
@@ -81,8 +87,11 @@ jobs:
       stage: Build CBEUnitTests 1 (Timeout in 20 min.)
       install:
         - test -d ~/llvm/build
+        - test -f ~/.ccache.tar && tar -xvg ~/.ccache.tar || true
       script:
         - cd ~/llvm/build && timeout 1200 ninja CBEUnitTests
+      after_success:
+        - tar -cvf ~/.ccache.tar ~/.ccache
     - <<: *build-cbe-unit-tests
       stage: Build CBEUnitTests 2 (Timeout in 20 min.)
     - <<: *build-cbe-unit-tests
