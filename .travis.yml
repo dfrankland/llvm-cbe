@@ -52,7 +52,6 @@ jobs:
         - test -f ~/llvm-cbe-ccache/.ccache.tar && tar -xvg ~/llvm-cbe-ccache/.ccache.tar -C ~ || true
       script:
         - cd ~/llvm/build && timeout 1200 ninja llvm-cbe || true
-      after_success:
         - tar -rvf ~/llvm-cbe-ccache/.ccache.tar ~/.ccache
         - rf -rf ~/.ccache
     - <<: *build-llvm-cbe
@@ -78,7 +77,6 @@ jobs:
         - test -f ~/llvm-cbe-ccache/.ccache.tar && tar -xvg ~/llvm-cbe-ccache/.ccache.tar -C ~ || true
       script:
         - cd ~/llvm/build && timeout 1200 ninja lli || true
-      after_success:
         - tar -rvf ~/llvm-cbe-ccache/.ccache.tar ~/.ccache
         - rf -rf ~/.ccache
     - <<: *build-lli
@@ -92,7 +90,6 @@ jobs:
         - test -f ~/llvm-cbe-ccache/.ccache.tar && tar -xvg ~/llvm-cbe-ccache/.ccache.tar -C ~ || true
       script:
         - cd ~/llvm/build && timeout 1200 ninja CBEUnitTests
-      after_success:
         - tar -rvf ~/llvm-cbe-ccache/.ccache.tar ~/.ccache
         - rf -rf ~/.ccache
     - <<: *build-cbe-unit-tests
